@@ -1,0 +1,26 @@
+configuration { location: 5      ; }
+
+* { background-color: transparent; }
+
+window {
+  fullscreen:       true                 ;
+  background-color: transparent          ;
+  transparency:     "real"               ;
+}
+
+prompt { enabled: false; }
+
+@import "../style/colors.rasi"
+
+entry  {
+  border:           2px                  ;
+  border-color:     @ac                  ;
+  padding:          15px 0 15px 0        ;
+  horizontal-align: 0.5                  ;
+  margin:           40% 40% 0 40%        ;
+  color:            @ac                  ;
+  background-color: @bg                  ;
+  font:             "Source Sans Pro 14" ;
+  border-radius:    12px                 ;
+  placeholder:      "Password"           ;
+}

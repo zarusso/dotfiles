@@ -1,0 +1,12 @@
+#!/bin/bash
+
+imgPath="~/.config/dunst/images/"
+img="screenshot-taken.png"
+
+text="Screenshot taken!"
+
+clicked=$(dunstify -A yes,ACCEPT -i $imgPath$img "$text")
+
+if [[ $clicked == "yes" ]]; then
+	xloadimage $1
+fi

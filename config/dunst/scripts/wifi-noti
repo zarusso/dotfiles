@@ -1,0 +1,39 @@
+#!/bin/bash
+
+imgPath="~/.config/dunst/images/"
+img="no-connection.png"
+
+text="Start Network Manager!"
+
+isNmStarted=$(systemctl is-active NetworkManager)
+if [[ $isNmStarted == "inactive" ]]; then
+  if [[ $(systemctl is-active ifplugd) == "inactive" ]]; then
+    switch=$(dunstify -A yes,ACCEPT -i $imgPath$img "$text")
+    if [[ $switch == "yes" ]]; then
+      alacritty -t termScratchPad -e ~/.local/bin/switch-wifi-conf
+    fi
+  else
+    img="wifi.png"
+    switch=$(dunstify -A yes,ACCEPT -i $imgPath$img "Cable Connection!")
+    if [[ $switch == "yes" ]]; then
+      alacritty -t termScratchPad -e ~/.local/bin/switch-wifi-conf
+    fi
+  fi
+  exit 0
+fi
+
+text=$(nmcli -t -f active,ssid dev wifi | grep yes: | sed 's/^....//')
+img="wifi.png"
+
+isNotConnected=$(iwconfig | grep ESSID:off/any)
+
+if [[ $isNotConnected ]]; then
+	img="no-connection.png"
+	text="Not Connected"
+fi
+
+wifi_menu=$(dunstify -A yes,ACCEPT -i $imgPath$img "$text")
+
+if [[ $wifi_menu == "yes" ]]; then
+	bash ~/.config/rofi/scripts/wifi-list
+fi

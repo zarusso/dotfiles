@@ -1,0 +1,12 @@
+{
+    "window.menuBarVisibility": "toggle",
+    "workbench.startupEditor": "none",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font'",
+    "workbench.colorTheme": "Monokai Pro",
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "window.zoomLevel": 1,
+    "editor.fontSize": 13,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "workbench.statusBar.visible": false
+}

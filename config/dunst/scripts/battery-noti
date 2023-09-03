@@ -1,0 +1,19 @@
+#!/bin/bash
+
+batLevel=$(cat /sys/class/power_supply/BAT1/capacity)
+batStatus=$(cat /sys/class/power_supply/BAT1/status)
+
+imgPath="~/.config/dunst/images/"
+img="battery-discharging.png"
+
+if [[ $batStatus == "Charging" ]]; then
+	img="battery-charging.png"
+fi
+if [[ $batLevel -le 20 ]]; then
+	img="battery-low.png"
+fi
+if [[ $batLevel -eq 100 ]]; then
+	img="battery-full.png"
+fi
+
+notify-send -i $imgPath$img $batLevel

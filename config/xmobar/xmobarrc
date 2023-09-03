@@ -1,0 +1,35 @@
+Config { font            = "xft:Ubuntu-bold-11"
+       , additionalFonts = [ "xft:Font Awesome 6 Free Solid-9" ]
+       , bgColor      = "#000000"
+       , fgColor      = "#BC96DA"
+       , borderColor  = "#BC96DA"
+       , border       = BottomB
+       , position = TopW C 10
+       , lowerOnStart = True
+       , hideOnStart  = False
+       , allDesktops  = True
+       , persistent   = True
+
+       , commands = [ Run Date " %H" "hour" 50
+		    , Run Date "%M " "mins" 50
+		    , Run BatteryN ["BAT1"]
+                    [ "-t", "<acstatus>"
+                    , "-S", "Off", "-d", "0", "-m", "3"
+                    , "-L", "10", "-H", "90", "-p", "3"
+                    , "-W", "0"
+                    , "-f", "\xf244\xf243\xf243\xf243\xf242\xf242\xf242\xf241\xf241\xf240"
+         			, "--"
+         			, "-P"
+         			, "-A", "5"
+         			, "-i", "<fn=2><fn=0>    </fn>\xf240</fn>"
+         			, "-O", "<fn=0>      </fn><fn=3>\xf1e6</fn>"
+         			, "-o", "<fn=2><fn=0>      </fn><leftbar></fn>"
+         			, "-H", "10", "-L", "7"
+         			] 50 "battery"
+
+		    , Run Com "echo" ["<fn=1>\xf1eb</fn>"] "wifi-icon" 3600
+                    ]
+	   , sepChar = "%"
+       , alignSep = "}{"
+       , template = "<action='.config/dunst/scripts/battery-noti'>%battery%</action>          %hour%:%mins%         <action='.config/dunst/scripts/wifi-noti'>%wifi-icon%</action>"
+       }

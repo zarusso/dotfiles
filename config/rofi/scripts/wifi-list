@@ -1,0 +1,27 @@
+#!/bin/bash
+
+theme="style"
+dir="~/.config/rofi/style/"
+
+rofi_theme=$dir$theme
+rofi_command="rofi -theme "$rofi_theme
+
+options=""
+while read -r ssid; do
+    options="$options$ssid\n"
+done < <(nmcli -g SSID dev wifi list)
+
+ssid=$(echo -e $options | $rofi_command -p "Wifi: " -i -dmenu)
+
+if [[ $ssid == "" ]]; then
+	exit 0
+fi
+
+theme="style-pass.rasi"
+rofi_theme=$dir$theme
+rofi_command="rofi -theme "$rofi_theme
+
+passwd=$($rofi_command -p "Password: " -i -dmenu -password)
+nmcli dev wifi connect "$ssid" password $passwd
+
+~/.config/dunst/scripts/wifi.sh
