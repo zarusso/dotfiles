@@ -1,0 +1,37 @@
+#!/bin/sh  
+
+batStatus=$(cat /sys/class/power_supply/BAT1/status)
+oldLevel=0
+if [[ $batStatus == "Full" ]]; then
+	oldLevel=99
+fi
+
+while true  
+do  
+  batLevel=$(cat /sys/class/power_supply/BAT1/capacity)
+  batStatus=$(cat /sys/class/power_supply/BAT1/status)
+
+  if [[ $batLevel == 5 ]] && [[ $batStatus == "Discharging" ]] && [[ $oldLevel == 6 ]]; then
+	  notify-send -u critical -i ~/.config/dunst/images/battery-low.png 5
+  fi
+
+  if [[ $batLevel == 10 ]] && [[ $batStatus == "Discharging" ]] && [[ $oldLevel == 11 ]]; then
+	  notify-send -u critical -i ~/.config/dunst/images/battery-low.png 10
+  fi
+
+  if [[ $batLevel == 20 ]] && [[ $batStatus == "Discharging" ]] && [[ $oldLevel == 21 ]]; then
+	  notify-send -u critical -i ~/.config/dunst/images/battery-low.png 20
+  fi
+
+  if [[ $batLevel == 50 ]] && [[ $batStatus == "Discharging" ]] && [[ $oldLevel == 51 ]]; then
+	  notify-send -u critical -i ~/.config/dunst/images/battery-discharging.png 50
+  fi
+
+  if [[ $batStatus == "Full" ]] && [[ $oldLevel == 99 ]]; then
+	  notify-send -u critical -i ~/.config/dunst/images/battery-full.png "Full Battery"
+  fi
+
+  oldLevel=$batLevel
+
+  sleep 90
+done

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+date=$(date +%Y-%m-%d_%H-%M-%S)
+path="$HOME/screenshots/"$date".png"
+
+if [[ $1 == "0" ]]; then
+	maim $path
+elif [[ $1 == "1" ]]; then
+	notify-send -i ~/.config/dunst/images/crop-image.png "Select Shape!"
+	maim -s $path
+else
+	echo "Missing argument!"
+	exit 0
+fi
+
+~/.config/dunst/scripts/screenshot-noti $path
