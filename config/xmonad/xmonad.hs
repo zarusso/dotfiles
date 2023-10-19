@@ -298,7 +298,8 @@ myKeys :: Keybindings
 myKeys = concat
   [ xmonadKeys
   , appKeys
-  , dmenuKeys
+  , rofiKeys
+  , notiKeys
   , multimediaKeys
   , windowKeys
   , scratchpadKeys
@@ -322,9 +323,15 @@ appKeys =
   , ("M-x"	 , spawn "archlinux-logout")
   ]
 
-dmenuKeys :: Keybindings
-dmenuKeys =
+rofiKeys :: Keybindings
+rofiKeys =
   [ ("M-o"  , spawn "rofi -no-lazy-grab -show drun -modi run,drun,window -theme ~/.config/rofi/style/style -drun-icon-theme 'candy-icons'")
+  ]
+
+notiKeys :: Keybindings
+notiKeys =
+  [ ("M-n b"  , spawn "exec ~/.config/dunst/scripts/battery-noti")
+  , ("M-n w"  , spawn "exec ~/.config/dunst/scripts/wifi-noti")
   ]
 
 multimediaKeys :: Keybindings
