@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if ! pgrep battery-warn
+then
+    ~/.local/bin/battery-warn &
+fi
+
+if ! pgrep spoti-mutead
+then
+    ~/.local/bin/spoti-mutead &
+fi

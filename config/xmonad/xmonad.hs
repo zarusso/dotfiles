@@ -156,7 +156,7 @@ myStartupHook = do
     spawnOnce "nitrogen --restore"
     spawnOnce "picom &"
     spawnOnce "volnoti"
-    spawnOnce "~/.local/bin/battery-warn"
+    spawnOnce "~/.local/bin/launch-scripts"
 
 myGaps = [(U,5),(L,5),(R,5),(D,5)]
 
@@ -336,17 +336,20 @@ notiKeys =
 
 multimediaKeys :: Keybindings
 multimediaKeys =
-  [ ("<XF86AudioMute>"       , volume "toggle; if amixer get Master | grep -Fq '[off]'; then volnoti-show -m; else volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1); fi" )
+  [ ("<XF86AudioMute>"       , volume_toggle "; if amixer get Master | grep -Fq '[off]'; then volnoti-show -m; else volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1); fi" )
   , ("<XF86AudioLowerVolume>" , volume "5%- unmute && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1)" ) 
   , ("<XF86AudioRaiseVolume>" , volume "5%+ unmute && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1)" )
-  , ("<XF86MonBrightnessUp>"  , backlight "-inc 5"    )
-  , ("<XF86MonBrightnessDown>", backlight "-dec 5"    )
+  , ("<XF86MonBrightnessUp>"  , backlight "+5%"    )
+  , ("<XF86MonBrightnessDown>", backlight "-5%"    )
   , ("<Print> 1"             , takeScreenshot         ) 
   , ("<Print> 2"             , takeScreenshotSelection)
   ]
  where
   volume :: String -> X ()
-  volume = spawn . ("amixer -q set Master " <>)
+  volume = spawn . ("pactl set-sink-mute @DEFAULT_SINK@ 0 && amixer -q set Master " <>)
+
+  volume_toggle :: String -> X ()
+  volume_toggle = spawn . ("pactl set-sink-mute @DEFAULT_SINK@ toggle" <>)
 
   backlight :: String -> X ()
   backlight = spawn . ("xbacklight " <>)
