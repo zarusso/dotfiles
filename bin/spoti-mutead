@@ -1,21 +1,19 @@
-#!/bin/sh  
-
-sleep 20
+#!/bin/sh
 
 com="playerctl -p spotify"
 
 while true
 do  
-  if { "$com" metadata | grep -q Advertisement && amixer get Master | grep -Fq '[on]'; }
+  if { $com metadata | grep -q Bones && amixer get Master | grep -Fq '[on]'; }
   then
-      "$com" volume 0
+      $com volume 0
 
-      while playerctl metadata | grep Advertisement
+      while $com metadata | grep -q Bones
       do
 	  sleep 2
       done
 
-      "$com" volume 1
+      $com volume 1
   fi
   sleep 5
 done
