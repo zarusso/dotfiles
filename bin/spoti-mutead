@@ -4,16 +4,24 @@ com="playerctl -p spotify"
 
 while true
 do  
-  if { $com metadata | grep -q Bones && amixer get Master | grep -Fq '[on]'; }
+  if ! pgrep spotify
+  then
+      echo "prova"
+      sleep 45
+      continue
+  fi
+
+  sleep 5
+
+  if { $com metadata | grep -q Advertisement && amixer get Master | grep -Fq '[on]'; }
   then
       $com volume 0
 
-      while $com metadata | grep -q Bones
+      while $com metadata | grep -q Advertisement
       do
 	  sleep 2
       done
 
       $com volume 1
   fi
-  sleep 5
 done

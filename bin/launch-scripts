@@ -4,5 +4,4 @@ pkill battery-warn
 pkill spoti-mutead
 
 ~/.local/bin/battery-warn &
-~/.local/bin/spoti-mutead &
-
+~/.local/bin/spoti-mutead
