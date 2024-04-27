@@ -1,7 +1,7 @@
 #!/bin/bash
 
-imgPath="~/.config/dunst/images/"
-img="no-connection.png"
+imgPath=~/.config/dunst/images/
+img=no-connection.png
 
 text="Start Network Manager!"
 
@@ -13,7 +13,7 @@ if [[ $isNmStarted == "inactive" ]]; then
       alacritty -t termScratchPad -e ~/.local/bin/switch-wifi-conf
     fi
   else
-    img="wifi.png"
+    img=wifi.png
     switch=$(dunstify -A yes,ACCEPT -i $imgPath$img "Cable Connection!")
     if [[ $switch == "yes" ]]; then
       alacritty -t termScratchPad -e ~/.local/bin/switch-wifi-conf
@@ -23,12 +23,12 @@ if [[ $isNmStarted == "inactive" ]]; then
 fi
 
 text=$(nmcli -t -f active,ssid dev wifi | grep yes: | sed 's/^....//')
-img="wifi.png"
+img=wifi.png
 
 isNotConnected=$(iwconfig | grep ESSID:off/any)
 
 if [[ $isNotConnected ]]; then
-	img="no-connection.png"
+	img=no-connection.png
 	text="Not Connected"
 fi
 
