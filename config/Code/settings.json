@@ -1,0 +1,52 @@
+{
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "editor.suggestSelection": "first",
+    "workbench.editor.enablePreview": false,
+    "git.suggestSmartCommit": false,
+    "explorer.confirmDragAndDrop": false,
+    "code-runner.executorMap": {
+        "cpp": "g++ $fullFileName && ./a.out"
+    },
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "window.menuBarVisibility": "toggle",
+    "workbench.startupEditor": "none",
+    "workbench.colorTheme": "Visual Studio Dark - C++",
+    "security.workspace.trust.untrustedFiles": "open",
+    "git.autofetch": true,
+    "editor.lineHeight": 2,
+    "settingsSync.ignoredSettings": [
+        "editor.fontFamily"
+    ],
+    "editor.fontFamily": "JetBrainsMono Nerd Font",
+    "editor.fontSize": 13.5,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1,
+        "vscodevim.vim": 1
+    },
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "notebook.confirmDeleteRunningCell": false,
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim",
+    "php.format.rules.addCommaAfterLastCallParameter": true,
+    "php.format.rules.keepFunctionsOnOneLine": false,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "git.openRepositoryInParentFolders": "never",
+    "php.inlayHints.parameters.enabled": false,
+    "php.suggest.basic": false,
+    "php.validate.enable": false,
+    "phpcs.standard": "",
+    "editor.insertSpaces": false,
+    "Devdb.colorTheme": "dark",
+    "terminal.integrated.inheritEnv": false
+}
