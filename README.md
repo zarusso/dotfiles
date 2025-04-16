@@ -1,4 +1,4 @@
-## dotfiles
+# dotfiles
 
 ## Dependencies
 To go through these steps you'll need an AUR helper, here are the steps to download paru:
