@@ -25,7 +25,7 @@ sudo pacman -S git
 git clone https://github.com/zarusso/dotfiles.git
 ```
 
-## Place files in correct locations
+## Place files in the correct locations
 From inside the dotfiles directory run these commands:
 ```bash
 mkdir -p ~/.local/bin
@@ -97,4 +97,6 @@ If it's working fine, enable the service:
 ```bash
 sudo systemctl enable lightdm
 ```
+And restart the PC.
 
+In case of problems at boot you should be able to enter the system using Alt+F2
