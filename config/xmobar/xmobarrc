@@ -31,5 +31,5 @@ Config { font            = "xft:Ubuntu-bold-11"
                     ]
 	   , sepChar = "%"
        , alignSep = "}{"
-       , template = "<action='.config/dunst/scripts/battery-noti'>%battery%</action>          %hour%:%mins%         <action='.config/dunst/scripts/wifi-noti'>%wifi-icon%</action>"
+       , template = "<action='.config/dunst/scripts/battery-noti'>%battery%</action>          %hour%:%mins%         <action='.config/dunst/scripts/wifi-noti-iwd'>%wifi-icon%</action>"
        }

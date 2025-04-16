@@ -1,0 +1,24 @@
+#!/bin/bash
+
+imgPath=~/.config/dunst/images/
+isIwdStarted=$(systemctl is-active iwd)
+
+if [[ $isIwdStarted == "inactive" ]]; then
+    $text="Start iwd!"
+    $img=no-connection.png
+    switch=$(dunstify -A yes,ACCEPT -i "$imgPath$img" "$text")
+    exit 0
+fi
+
+ssid=$(iwctl station wlan0 show | awk '/Connected network/ {print $NF}')
+
+if [[ -z "$ssid" ]]; then
+    img=no-connection.png
+    text="Not Connected"
+else
+    img=wifi.png
+    text="$ssid"
+fi
+
+notify-send -i $imgPath$img $text
+

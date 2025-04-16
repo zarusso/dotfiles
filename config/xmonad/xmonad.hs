@@ -238,7 +238,7 @@ myBrowser :: String
 myBrowser = "firefox"
 
 myGuiEditor :: String
-myGuiEditor = "codium"
+myGuiEditor = "code"
 
 myBorderWidth :: Dimension
 myBorderWidth = 2
@@ -331,28 +331,31 @@ rofiKeys =
 notiKeys :: Keybindings
 notiKeys =
   [ ("M-n b"  , spawn "exec ~/.config/dunst/scripts/battery-noti")
-  , ("M-n w"  , spawn "exec ~/.config/dunst/scripts/wifi-noti")
+  , ("M-n w"  , spawn "exec ~/.config/dunst/scripts/wifi-noti-iwd")
   ]
 
 multimediaKeys :: Keybindings
 multimediaKeys =
-  [ ("<XF86AudioMute>"       , volume_toggle "; if amixer get Master | grep -Fq '[off]'; then volnoti-show -m; else volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1); fi" )
-  , ("<XF86AudioLowerVolume>" , volume "5%- unmute && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1)" ) 
-  , ("<XF86AudioRaiseVolume>" , volume "5%+ unmute && volnoti-show $(amixer get Master | grep -Po '[0-9]+(?=%)' | tail -1)" )
-  , ("<XF86MonBrightnessUp>"  , backlight "+5%"    )
-  , ("<XF86MonBrightnessDown>", backlight "-5%"    )
-  , ("<Print> 1"             , takeScreenshot         ) 
+  [ ("<XF86AudioMute>"       , volume_toggle)
+  , ("<XF86AudioLowerVolume>", volume "-5%")
+  , ("<XF86AudioRaiseVolume>", volume "+5%")
+  , ("<XF86MonBrightnessUp>" , backlight "+5%")
+  , ("<XF86MonBrightnessDown>", backlight "5%-")
+  , ("<Print> 1"             , takeScreenshot)
   , ("<Print> 2"             , takeScreenshotSelection)
   ]
  where
-  volume :: String -> X ()
-  volume = spawn . ("pactl set-sink-mute @DEFAULT_SINK@ 0 && amixer -q set Master " <>)
+  volnoti :: String
+  volnoti = "volnoti-show $(pactl get-sink-volume @DEFAULT_SINK@ | grep -oP '\\d+%' | head -1 | tr -d '%')"
 
-  volume_toggle :: String -> X ()
-  volume_toggle = spawn . ("pactl set-sink-mute @DEFAULT_SINK@ toggle" <>)
+  volume :: String -> X ()
+  volume amount = spawn $ "pactl set-sink-mute @DEFAULT_SINK@ 0 && pactl set-sink-volume @DEFAULT_SINK@ " ++ amount ++ " && " ++ volnoti
+
+  volume_toggle :: X ()
+  volume_toggle = spawn $ "pactl set-sink-mute @DEFAULT_SINK@ toggle; if pactl get-sink-mute @DEFAULT_SINK@ | grep -Fq 'yes'; then volnoti-show -m; else " ++ volnoti ++ "; fi"
 
   backlight :: String -> X ()
-  backlight = spawn . ("xbacklight " <>)
+  backlight = spawn . ("brightnessctl set " ++)
 
   takeScreenshot = spawn "exec $HOME/.local/bin/screenshot 0"
   takeScreenshotSelection = spawn "exec $HOME/.local/bin/screenshot 1"
