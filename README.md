@@ -1,10 +1,6 @@
-### dotfiles
+## dotfiles
 
-## Installation
-```bash
-sudo pacman -S git
-git clone https://github.com/zarusso/dotfiles.git
-```
+## Dependencies
 To go through these steps you'll need an AUR helper, here are the steps to download paru:
 ```bash
 sudo pacman -S --needed base-devel
@@ -13,6 +9,21 @@ cd paru
 makepkg -si
 ```
 Feel free to remove the paru folder just downloaded
+
+Required fonts:
+```bash
+paru -S adobe-source-code-pro-fonts ttf-font-awesome ttf-jetbrains-mono-nerd ttf-ubuntu-font-family
+```
+Packages required to make the system work correctly:
+```bash
+paru -S alacritty arcolinux-logout betterlockscreen dunst firefox htop libnotify maim nitrogen oh-my-posh picom pulseaudio qalculate-gtk rofi volnoti
+```
+
+## Installation
+```bash
+sudo pacman -S git
+git clone https://github.com/zarusso/dotfiles.git
+```
 
 ## Place files in correct locations
 From inside the dotfiles directory run these commands:
@@ -63,6 +74,20 @@ greeter-session=lightdm-mini-greeter
 And set the correct user in /etc/lightdm/lightdm.conf:
 ```bash
 user = YOUR_USERNAME
+```
+Create the file /usr/share/xsessions/xmonad.desktop for the XMonad desktop entry and write:
+```bash
+[Desktop Entry]
+Encoding=UTF-8
+Name=xmonad
+Comment=Start xmonad
+Exec=/home/YOUR_USERNAME/.local/bin/xmonad
+Type=Application
+```
+And specify in ~/.dmrc the session you want to execute:
+```bash
+[Desktop]
+Session=xmonad
 ```
 Check if lightdm is working correctly:
 ```bash
